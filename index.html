@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="PrimeScriptLab builds custom scripts, automation tools, bots, integrations and programming utilities in almost any programming language."
+    >
+    <title>PrimeScriptLab | Custom Scripts and Automation</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="PrimeScriptLab home">
+        <span class="brand-mark" aria-hidden="true">PS</span>
+        <span>
+          <strong>PrimeScriptLab</strong>
+          <small>Custom code studio</small>
+        </span>
+      </a>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="#services">Services</a>
+        <a href="#packages">Packages</a>
+        <a href="#order">Order</a>
+        <a href="#payment">PayPal</a>
+        <a href="#dashboard">Dashboard <span id="orderBadge">0</span></a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <img src="assets/prime-script-lab-hero.png" alt="Custom script development workspace with checkout panels">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <p class="eyebrow">Fiverr-style script orders, direct from your own website</p>
+          <h1 id="hero-title">PrimeScriptLab</h1>
+          <p class="hero-copy">
+            Custom scripts for automation, data work, bots, web tools, apps, game systems and almost any programming language.
+            Choose a package, describe the task, save the request and pay through PayPal when your account is connected.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#order">Start an order</a>
+            <a class="button secondary" href="https://www.fiverr.com/primescriptlab_/make-a-script-for-almost-any-programming-language" target="_blank" rel="noreferrer">View Fiverr gig</a>
+          </div>
+          <div class="trust-strip" aria-label="Service highlights">
+            <span>Source code included</span>
+            <span>Setup notes</span>
+            <span>Revision support</span>
+            <span>PayPal-ready checkout</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="services" class="section split-section" aria-labelledby="services-title">
+        <div class="section-heading">
+          <p class="eyebrow">Services</p>
+          <h2 id="services-title">Script work clients can understand before they order.</h2>
+          <p>
+            The site mirrors the way Fiverr buyers compare services: language, scope, delivery, revision and add-on details are clear before checkout.
+          </p>
+        </div>
+
+        <div class="service-grid" id="serviceGrid"></div>
+      </section>
+
+      <section id="packages" class="section" aria-labelledby="packages-title">
+        <div class="section-heading wide">
+          <div>
+            <p class="eyebrow">Packages</p>
+            <h2 id="packages-title">Basic, Standard and Premium packages.</h2>
+          </div>
+          <p>
+            The package data lives in <code>config.js</code>, so you can match your exact Fiverr prices and delivery times whenever you want.
+          </p>
+        </div>
+
+        <div class="package-grid" id="packageGrid"></div>
+        <div class="comparison-wrap">
+          <table class="comparison-table" aria-label="Package comparison">
+            <thead>
+              <tr>
+                <th>Included</th>
+                <th>Basic</th>
+                <th>Standard</th>
+                <th>Premium</th>
+              </tr>
+            </thead>
+            <tbody id="comparisonRows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="order" class="section order-section" aria-labelledby="order-title">
+        <div class="section-heading">
+          <p class="eyebrow">Order</p>
+          <h2 id="order-title">Build the request and get a live total.</h2>
+          <p>
+            Buyers can describe the job, select options, save the order locally and continue to PayPal. For real client orders, connect a backend or form service after deployment.
+          </p>
+        </div>
+
+        <div class="order-layout">
+          <aside class="quote-panel" aria-label="Live quote">
+            <div class="quote-top">
+              <span>Estimate</span>
+              <strong id="quoteTotal">$0</strong>
+            </div>
+            <div id="quoteBreakdown" class="quote-breakdown"></div>
+            <button type="button" id="paySelectedButton" class="button primary full">Continue to payment</button>
+          </aside>
+
+          <form id="orderForm" class="order-form" novalidate>
+            <div class="form-grid">
+              <label>
+                Full name
+                <input name="clientName" autocomplete="name" placeholder="Client name" required>
+              </label>
+              <label>
+                Email
+                <input name="clientEmail" type="email" autocomplete="email" placeholder="client@email.com" required>
+              </label>
+            </div>
+
+            <div class="form-grid">
+              <label>
+                Package
+                <select name="package" id="packageSelect" required></select>
+              </label>
+              <label>
+                Programming language
+                <select name="language" id="languageSelect" required></select>
+              </label>
+            </div>
+
+            <label>
+              Script type
+              <select name="scriptType" id="scriptTypeSelect" required></select>
+            </label>
+
+            <fieldset>
+              <legend>Add-ons</legend>
+              <div class="addon-grid" id="addonGrid"></div>
+            </fieldset>
+
+            <div class="form-grid">
+              <label>
+                Extra integrations
+                <input name="integrations" id="integrationInput" type="number" min="0" max="8" value="0">
+              </label>
+              <label>
+                Preferred delivery
+                <select name="delivery" id="deliverySelect">
+                  <option value="normal">Package delivery</option>
+                  <option value="rush">Rush delivery</option>
+                  <option value="flexible">Flexible schedule</option>
+                </select>
+              </label>
+            </div>
+
+            <label>
+              Project description
+              <textarea
+                name="description"
+                rows="7"
+                placeholder="What should the script do? Include inputs, outputs, websites/APIs, examples, rules, and anything the buyer must provide."
+                required
+              ></textarea>
+            </label>
+
+            <p id="formError" class="form-error" role="alert"></p>
+            <div class="form-actions">
+              <button type="submit" class="button primary">Save request</button>
+              <button type="button" id="copySummaryButton" class="button secondary">Copy summary</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section id="payment" class="section payment-section" aria-labelledby="payment-title">
+        <div class="section-heading wide">
+          <div>
+            <p class="eyebrow">Payment</p>
+            <h2 id="payment-title">Connect PayPal and receive money.</h2>
+          </div>
+          <p>
+            Add your PayPal client ID in <code>config.js</code>. Until then, the page safely shows setup steps and keeps orders in the dashboard.
+          </p>
+        </div>
+
+        <div class="payment-layout">
+          <article class="payment-card">
+            <div class="payment-card-head">
+              <span>Selected checkout</span>
+              <strong id="paymentTotal">$0</strong>
+            </div>
+            <div id="selectedOrderSummary" class="selected-summary"></div>
+            <div id="paypalStatus" class="paypal-status"></div>
+            <div id="paypalButtons" class="paypal-buttons"></div>
+            <a id="paypalMeLink" class="button secondary full hidden" href="#" target="_blank" rel="noreferrer">Open PayPal payment link</a>
+          </article>
+
+          <article class="setup-card">
+            <h3>PayPal setup</h3>
+            <ol>
+              <li>Create or log into your PayPal business account.</li>
+              <li>Create a PayPal REST app and copy the live client ID.</li>
+              <li>Open <code>config.js</code> and replace <code>YOUR_PAYPAL_CLIENT_ID</code>.</li>
+              <li>Deploy the site to your domain and make a small live test order.</li>
+            </ol>
+            <p>
+              For production, a small backend is recommended for secure order storage, email notifications and PayPal webhooks.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="dashboard" class="section dashboard-section" aria-labelledby="dashboard-title">
+        <div class="section-heading wide">
+          <div>
+            <p class="eyebrow">Dashboard</p>
+            <h2 id="dashboard-title">Saved order requests</h2>
+          </div>
+          <div class="dashboard-actions">
+            <button type="button" id="exportCsvButton" class="button secondary">Export CSV</button>
+            <button type="button" id="clearOrdersButton" class="button danger">Clear</button>
+          </div>
+        </div>
+        <div id="ordersList" class="orders-list"></div>
+      </section>
+    </main>
+
+    <dialog id="orderDialog" class="site-dialog">
+      <div class="dialog-head">
+        <div>
+          <p class="eyebrow">Request saved</p>
+          <h2 id="dialogTitle">Order ready</h2>
+        </div>
+        <button type="button" id="closeDialogButton" class="icon-button" aria-label="Close dialog">x</button>
+      </div>
+      <div id="dialogBody"></div>
+      <div class="dialog-actions">
+        <button type="button" id="dialogPaymentButton" class="button primary">Go to payment</button>
+        <button type="button" id="dialogDashboardButton" class="button secondary">View dashboard</button>
+      </div>
+    </dialog>
+
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
