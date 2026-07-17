@@ -5,7 +5,7 @@ window.PRIMESCRIPTLAB_CONFIG = {
   currency: "USD",
 
   paypal: {
-    clientId: "YOUR_PAYPAL_CLIENT_ID",
+    clientId: "AXPbfcpN4yYBYDteScCtYjCNDlCcumBut9XLDJmJ7wsv1cRdcWxLDmc3Ka0mXhrWLarCJ7WOK_VarRWf",
     businessEmail: "your-paypal-business@example.com",
     paypalMe: ""
   },
